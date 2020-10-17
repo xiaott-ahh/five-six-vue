@@ -11,8 +11,11 @@
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
+    "hooper": "^0.3.4",
     "vue": "^2.6.11",
-    "vue-router": "^3.4.7"
+    "vue-router": "^3.4.7",
+    "vue-slick-carousel": "^1.0.6",
+    "vueperslides": "^2.10.8"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

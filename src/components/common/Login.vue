@@ -1,31 +1,31 @@
 <template>
   <div class="login-form">
-    <el-form :model="loginForm" label-position="top" ref="loginForm" class="login">
-      <el-form-item label="用户名/邮箱">
-        <el-input size="small" type="text" v-model="loginForm.username" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="密码">
-        <el-input size="small" type="password" v-model="loginForm.password" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-button style="padding-left: 20px" type="text" @click="forgetPassword">忘记密码？</el-button>
-      <el-checkbox size="medium" style="padding-left: 120px;color: white" v-model="checked">记住我</el-checkbox>
-      <el-form-item style="padding: 0px 50px">
-        <el-button  class="submit" size="medium" round type="primary" @click="login">提交</el-button>
-      </el-form-item>
-      <el-divider></el-divider>
-      <el-form-item>
-        <a class="login-way" href="/">
-          <img src="../../assets/ico/wechat.png" style="object-fit: fill"/>
-        </a>
-        <a class="login-way" href="https://baidu.com">
-          <img src="../../assets/ico/github.png" style="object-fit: fill"/>
-        </a>
-        <a class="login-way" href="https://baidu.com">
-          <img src="../../assets/ico/weibo.png" style="object-fit: fill"/>
-        </a>
-      </el-form-item>
-    </el-form>
-  </div>
+      <el-form :model="loginForm" label-position="top" ref="loginForm" class="login">
+        <el-form-item label="用户名/邮箱">
+          <el-input size="small" type="text" v-model="loginForm.username" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input size="small" type="password" v-model="loginForm.password" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-button style="padding-left: 20px" type="text" @click="forgetPassword">忘记密码？</el-button>
+        <el-checkbox size="medium" style="padding-left: 120px;color: white" v-model="checked">记住我</el-checkbox>
+        <el-form-item style="padding: 0px 50px">
+          <el-button  class="submit" size="medium" round type="primary" @click="login">提交</el-button>
+        </el-form-item>
+        <el-divider></el-divider>
+        <el-form-item>
+          <a class="login-way" href="/">
+            <img src="../../assets/ico/wechat.png" style="object-fit: fill"/>
+          </a>
+          <a class="login-way" href="https://baidu.com">
+            <img src="../../assets/ico/github.png" style="object-fit: fill"/>
+          </a>
+          <a class="login-way" href="https://baidu.com">
+            <img src="../../assets/ico/weibo.png" style="object-fit: fill"/>
+          </a>
+        </el-form-item>
+      </el-form>
+    </div>
 </template>
 
 <script>
@@ -64,9 +64,11 @@ export default {
 </script>
 
 <style scoped>
+
   .login-form {
     width:300px;
-    padding-top: 10px;
+    padding: 0px;
+    background: rgba(2, 10, 14, 0.3);
   }
   .el-form-item {
     padding-left: 20px;
@@ -83,4 +85,8 @@ export default {
     padding: 23px;
   }
 
+  /deep/ .el-divider__text {
+    color: white;
+    font-size: 20px;
+  }
 </style>
