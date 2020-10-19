@@ -12,7 +12,24 @@
     </div>
     <div class="movie-content" style="margin-top: 70px">
       <div class="carousel">
-        <h1>---动作---</h1>
+        <div class="content-tag" align="left">
+          <span>动作</span>
+        </div>
+        <el-carousel :interval="4000" type="card" height="300px">
+          <el-carousel-item
+              v-for="(slide,i) in slides"
+              :key="i"
+          >
+            <a :href="slide.url">
+              <img :src="slide.image" style="width: 100%;height: 100%"/>
+            </a>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+      <div class="carousel">
+        <div class="content-tag" align="left">
+          <span>动作</span>
+        </div>
         <el-carousel :interval="4000" type="card" height="300px">
           <el-carousel-item
               v-for="(slide,i) in slides"
@@ -23,18 +40,9 @@
         </el-carousel>
       </div>
       <div class="carousel">
-        <el-divider content-position="left">爱情</el-divider>
-        <el-carousel :interval="4000" type="card" height="300px">
-          <el-carousel-item
-              v-for="(slide,i) in slides"
-              :key="i"
-          >
-            <img :src="slide.image" style="width: 100%;height: 100%"/>
-          </el-carousel-item>
-        </el-carousel>
-      </div>
-      <div class="carousel">
-        <el-divider content-position="left">动画</el-divider>
+        <div class="content-tag" align="left">
+          <span>动作</span>
+        </div>
         <el-carousel :interval="4000" type="card" height="300px">
           <el-carousel-item
               v-for="(slide,i) in slides"
@@ -44,8 +52,10 @@
           </el-carousel-item>
         </el-carousel>
       </div>
-      <div>
-        <el-divider content-position="left">科幻</el-divider>
+      <div class="carousel">
+        <div class="content-tag" align="left">
+          <span>动作</span>
+        </div>
         <el-carousel :interval="4000" type="card" height="300px">
           <el-carousel-item
               v-for="(slide,i) in slides"
@@ -56,7 +66,9 @@
         </el-carousel>
       </div>
       <div class="carousel">
-        <el-divider content-position="left">喜剧</el-divider>
+        <div class="content-tag" align="left">
+          <span>动作</span>
+        </div>
         <el-carousel :interval="4000" type="card" height="300px">
           <el-carousel-item
               v-for="(slide,i) in slides"
@@ -80,7 +92,9 @@ export default {
   data: () => ({
 
     slides: [
-      { image: require('@/assets/movieImages/000000.jpg'),
+      {
+        image: require('@/assets/movieImages/000000.jpg'),
+        url:'/videoplay'
       },
       { image: require('@/assets/movieImages/000001.jpg') },
       { image: require('@/assets/movieImages/000002.jpg') },
@@ -109,4 +123,31 @@ export default {
   div.carousel {
     margin-top: 80px;
   }
+
+  .el-carousel {
+    margin-top: 10px;
+  }
+
+  div.content-tag {
+    align:"left"
+  }
+
+  div.content-tag span {
+    padding: 0px 50px;
+    display: inline-block;
+    font-size: 35px;
+    color: #3a91ba;
+    margin-bottom: 30px;
+  }
+
+  div.content-tag hr {
+    display: inline-block;
+    width: 30%;
+    color: #3a91ba;
+  }
+
+  /deep/ li.el-carousel__indicator.el-carousel__indicator--horizontal {
+    display: none;
+  }
+
 </style>

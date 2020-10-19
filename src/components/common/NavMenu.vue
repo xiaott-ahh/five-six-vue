@@ -8,7 +8,6 @@
     <div class="nav-left" style="width: 40%;padding-right: 30px">
       <el-menu
           theme="dark"
-          :default-active="activeIndex2"
           mode="horizontal"
           router
           @select="handleSelect"
@@ -36,10 +35,8 @@
       <el-menu
           theme="dark"
           class="nav-right"
-          :default-active="activeIndex2"
           router
           mode="horizontal"
-          @select="handleSelect"
           background-color=transparent
           text-color=white
           active-text-color=white>
@@ -64,8 +61,18 @@ export default {
     };
   },
   methods: {
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+    handleSelect(index) {
+      if (index == '/recommand') {
+        const loading = this.$loading({
+          lock: true,
+          text: '正在为您生成推荐',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 1)'
+        });
+        setTimeout(() => {
+          loading.close();
+        }, 1000);
+      }
     }
   },
 
