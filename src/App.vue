@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav-menu></nav-menu>
+    <nav-menu v-if="$route.meta.keepAlive"></nav-menu>
     <router-view/>
   </div>
 </template>
@@ -9,7 +9,8 @@
 import NavMenu from "@/components/common/NavMenu";
 export default {
   name: 'App',
-  components : {NavMenu}
+  components : {NavMenu},
+
 }
 </script>
 

@@ -2,7 +2,7 @@
   <div class="nav" style="padding: 0;">
     <div class="nav-logo" style="width: 20%;">
       <a class="logo" href="/">
-        <img src="../../assets/images/logo.png" style="object-fit: fill"/>
+        <img src="../../assets/images/logo.png" alt=""/>
       </a>
     </div>
     <div class="nav-left" style="width: 40%;padding-right: 30px">
@@ -14,7 +14,7 @@
           background-color=transparent
           text-color=white
           active-text-color=white>
-        <el-menu-item index="/movie">今日放映</el-menu-item>
+        <el-menu-item index="/movieset">电影集</el-menu-item>
         <el-menu-item index="/recommand">向我推荐</el-menu-item>
         <el-menu-item index="/news">影讯</el-menu-item>
       </el-menu>
@@ -31,7 +31,7 @@
     <div class="nav-sep" style="width: 1%;padding-left: 20px">
       <h3 style="color: white">|</h3>
     </div>
-    <div class="nav-right" style="width: 15%">
+    <div v-if="!$store.state.user.username" class="nav-right" style="width: 15%">
       <el-menu
           theme="dark"
           class="nav-right"
@@ -41,9 +41,31 @@
           text-color=white
           active-text-color=white>
         <el-menu-item index="/register">注册</el-menu-item>
-        <el-submenu index="/signin" show-timeout="100" hide-timeout="600">
-          <template slot="title">登录</template>
-          <login></login>
+        <el-menu-item index="/login">登录</el-menu-item>
+      </el-menu>
+    </div>
+    <div v-else class="user-profile" style="width: 15%">
+      <el-menu
+          theme="dark"
+          class="nav-userProfile"
+          mode="horizontal"
+          background-color=transparent
+          text-color=white
+          active-text-color=white
+          style="margin-left: 40px"
+      >
+        <el-submenu
+            index="user-profile"
+            hide-timeout="8000"
+        >
+          <template slot="title">
+            <span>{{$store.state.user.username}}</span>
+            <img src="../../assets/ico/wechat.png" alt="" />
+          </template>
+          <el-menu-item index="profile-1">我的收藏</el-menu-item>
+          <el-menu-item index="profile-2">管理文章</el-menu-item>
+          <el-menu-item index="profile-3">我的关注</el-menu-item>
+          <el-button>退出</el-button>
         </el-submenu>
       </el-menu>
     </div>
@@ -52,36 +74,42 @@
 
 <script>
 import '../../assets/my-ele-css/my-input.css'
-import Login from "@/components/common/Login";
 export default {
   data() {
     return {
+      keywords: '',
       activeIndex: '1',
       activeIndex2: '1'
     };
   },
   methods: {
     handleSelect(index) {
-      if (index == '/recommand') {
-        const loading = this.$loading({
-          lock: true,
-          text: '正在为您生成推荐',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 1)'
-        });
-        setTimeout(() => {
-          loading.close();
-        }, 1000);
+      if (this.$store.state.user.name) {
+        if (index === '/recommand') {
+          const loading = this.$loading({
+            lock: true,
+            text: '正在为您生成推荐',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 1)'
+          });
+          setTimeout(() => {
+            loading.close();
+          }, 1000);
+        }
       }
     }
   },
-
-  components: {Login}
+  name: 'NavMenu',
 }
 </script>
 
 <style scoped>
-    .nav {
+
+      /deep/ ul.el-menu--popup-bottom-start{
+        background-color: rgba(2, 10, 14, 1) !important;
+      }
+
+      .nav {
       width:100%;
       height: 60px;
       display: flex;
@@ -98,6 +126,11 @@ export default {
     .el-menu {
       border: none !important;
     }
+
+    .el-submenu {
+      border-bottom: none;
+    }
+
     .el-menu-item:hover {
       background-color: #3a91ba !important;
     }
@@ -114,5 +147,6 @@ export default {
     .logo img{
       background:no-repeat;
     }
+
 </style>
 

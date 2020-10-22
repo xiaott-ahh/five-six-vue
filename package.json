@@ -13,9 +13,11 @@
     "element-ui": "^2.13.2",
     "hooper": "^0.3.4",
     "vue": "^2.6.11",
+    "vue-cute-rate": "^1.0.2",
     "vue-router": "^3.4.7",
     "vue-slick-carousel": "^1.0.6",
-    "vueperslides": "^2.10.8"
+    "vueperslides": "^2.10.8",
+    "vuex": "^3.5.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

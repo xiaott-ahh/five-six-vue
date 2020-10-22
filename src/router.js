@@ -3,8 +3,11 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import Register from '@/components/registerpage/Register'
 import Movie from '@/components/moviepage/Movie'
-import Recommand from "@/components/recomandpage/Recommand";
-import MoviePlay from "@/components/common/MoviePlay";
+import Recommand from "@/components/recomandpage/Recommand"
+import MoviePlay from "@/components/common/MoviePlay"
+import Login from "@/components/LoginPage/Login";
+import MovieSet from "@/components/moviepage/MovieSet";
+
 Vue.use(Router)
 
 export default new Router({
@@ -13,27 +16,59 @@ export default new Router({
         {
             path: '/',
             name: 'Home',
-            component: Home
+            component: Home,
+            meta: {
+                keepAlive: true
+            }
+        },
+        {
+            path: '/login',
+            name: 'Login',
+            component: Login,
+            meta: {
+                keepAlive: false
+            }
         },
         {
             path: '/register',
             name: 'Register',
-            component: Register
+            component: Register,
+            meta: {
+                keepAlive: false
+            }
         },
         {
             path: '/movie',
             name: 'Movie',
-            component: Movie
+            component: Movie,
+            meta: {
+                keepAlive: true
+            }
+        },
+        {
+            path: '/movieset',
+            name: 'MovieSet',
+            component: MovieSet,
+            meta: {
+                keepAlive: true
+            }
         },
         {
             path: '/recommand',
             name: 'Recommand',
-            component: Recommand
+            component: Recommand,
+            meta: {
+                requireAuth: true,
+                keepAlive: true
+            }
         },
         {
             path: '/movieplay',
             name: 'MoviePlay',
-            component: MoviePlay
+            component: MoviePlay,
+            meta: {
+                keepAlive: true
+            }
         }
 
     ]

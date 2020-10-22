@@ -1,15 +1,15 @@
 <template>
-  <div class="login-form">
-      <el-form :model="loginForm" label-position="top" ref="loginForm" class="login">
+  <div id="poster">
+      <el-form :model="loginForm" label-position="left" class="login">
         <el-form-item label="用户名/邮箱">
-          <el-input size="small" type="text" v-model="loginForm.username" autocomplete="off"></el-input>
+          <el-input size="small" type="text" v-model="loginForm.name" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码">
           <el-input size="small" type="password" v-model="loginForm.password" autocomplete="off"></el-input>
         </el-form-item>
-        <el-button style="padding-left: 20px" type="text" @click="forgetPassword">忘记密码？</el-button>
-        <el-checkbox size="medium" style="padding-left: 120px;color: white" v-model="checked">记住我</el-checkbox>
-        <el-form-item style="padding: 0px 50px">
+        <el-button style="padding-right: 10px" type="text" @click="forgetPassword">忘记密码？</el-button>
+        <el-checkbox size="medium" style="padding-left: 90px;color: white" v-model="checked">记住我</el-checkbox>
+        <el-form-item style="padding: 10px 50px 0px 50px">
           <el-button  class="submit" size="medium" round type="primary" @click="login">提交</el-button>
         </el-form-item>
         <el-divider></el-divider>
@@ -34,7 +34,7 @@ export default {
   data () {
     return {
       loginForm: {
-        username: '',
+        name: '',
         password: ''
       },
       responseResult: []
@@ -42,14 +42,18 @@ export default {
   },
   methods: {
     login () {
+      var _this = this
+      console.log(this.$store.state)
       this.$axios
           .post('/login', {
-            username: this.loginForm.username,
+            name: this.loginForm.name,
             password: this.loginForm.password
           },)
           .then(successResponse => {
             if (successResponse.data.code === 200) {
-              alert(successResponse.data.message)
+              _this.$store.commit('login',_this.loginForm)
+              const path = this.$route.query.redirect;
+              this.$router.replace({path:path === '/' || path === undefined ? '/' : path})
             }
             if (successResponse.data.code === 400) {
               alert(successResponse.data.message)
@@ -65,15 +69,22 @@ export default {
 
 <style scoped>
 
-  .login-form {
+  #poster {
+    background:url("../../assets/login.png") no-repeat;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    position: fixed;
+  }
+
+  .login {
+    margin:100px auto;
     width:300px;
-    padding: 0px;
-    background: rgba(2, 10, 14, 0.3);
+    padding: 10px 20px 0px 20px;
+    background: rgba(2, 10, 14, 0.5);
   }
-  .el-form-item {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
+
   /deep/ .el-form-item__label {
     color: white;
   }
@@ -85,8 +96,4 @@ export default {
     padding: 23px;
   }
 
-  /deep/ .el-divider__text {
-    color: white;
-    font-size: 20px;
-  }
 </style>
