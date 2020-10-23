@@ -1,0 +1,9 @@
+.el-loading-spinner {
+    background-image:url('../images/loading.gif');
+    background-repeat: no-repeat;
+    background-position:center;
+    height: 30%;
+  }
+/deep/ .el-loading-spinner .circular {
+    display: none;
+}

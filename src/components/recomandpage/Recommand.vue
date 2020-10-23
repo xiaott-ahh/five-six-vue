@@ -53,10 +53,10 @@
               :autoplay="false"
               @slide="$refs.slidesContent.goToSlide($event.currentSlide.index, { emit: false })"
               3d
-              fixed-height="400px"
+              fixed-height="380px"
               :arrows="false"
               :bullets="false"
-              style="width: 250px;padding-left: 95px"
+              style="width: 260px;padding-left: 95px"
           >
             <vueper-slide
                 v-for="(slide,i) in slides"
@@ -77,6 +77,7 @@
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
 import StarRate from 'vue-cute-rate'
+import '../../assets/my-ele-css/my-loading.css'
 export default {
   name: "Recommand",
   components: {VueperSlide, VueperSlides,StarRate},
@@ -178,6 +179,7 @@ export default {
 
   div.slide-content p.count {
     font-size: 45px;
+    margin-top: 20px;
   }
 
   div.slide-content p{
