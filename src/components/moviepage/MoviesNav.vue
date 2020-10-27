@@ -1,45 +1,83 @@
 <template>
-  <div class="movie-nav">
-    <div class="type">
-      <el-button round>科幻</el-button>
-      <el-button round>悬疑</el-button>
+  <div class="movie-nav" style="margin-top: 20px">
+    <div class="chooseMovie" style="display: flex">
+      <el-tag effect="dark" style="margin-left: 10px">选电影</el-tag>
     </div>
-    <div class="type">
-      <el-button round>爱情</el-button>
-      <el-button round>喜剧</el-button>
+    <div class="chooseBytype" style="display: flex;width: 100%;flex-wrap: wrap;margin-top: 10px">
+      <el-radio-group
+          v-model="cid"
+          @change="handleSelect"
+      >
+        <el-radio v-for="(val,key) in types" :key="key" :label="key">{{val}}</el-radio>
+      </el-radio-group>
     </div>
-    <div class="type">
-      <el-button round>恐怖</el-button>
-      <el-button round>动作</el-button>
-    </div>
-    <div class="type">
-      <el-button round>剧情</el-button>
-      <el-button round>动画</el-button>
+    <el-divider></el-divider>
+    <div class="chooseByOther" style="margin-left: 15px">
+      <el-radio-group
+        v-model="dateOrRate"
+        @change="handleSelect2"
+      >
+        <el-radio label="1">按评分</el-radio>
+        <el-radio label="2">按时间</el-radio>
+      </el-radio-group>
     </div>
   </div>
 </template>
 
 <script>
+const categories = {
+  0: '全部', 1: '剧情', 2: '喜剧', 3: '动作',
+  4: '爱情', 5: '科幻', 6: '动画', 7: '悬疑',
+  8: '惊悚', 9: '恐怖', 10: '犯罪', 11: '同性',
+  12: '音乐', 13: '歌舞', 14: '传记', 15: '历史',
+  16: '战争', 17: '西部', 18: '奇幻', 19: '冒险',
+  20: '灾难', 21: '武侠', 22: '情色'
+};
 export default {
-  name: "MoviesNav"
+  name: "MoviesNav",
+  data() {
+    return {
+      dateOrRate:'1',
+      cid:'0',
+      types: categories
+    }
+  },
+  methods: {
+    handleSelect(value) {
+      this.cid = value;
+      this.$emit('categorySelect')
+    },
+    handleSelect2(value) {
+      this.dateOrRate = value;
+      this.$emit('categorySelect')
+    }
+  }
 }
 </script>
 
 <style scoped>
-
-  div.type {
-    margin: 20px;
+  div {
+    display: flex;
+    flex-wrap: wrap;
   }
-  .el-button {
+
+  button {
+    background: transparent !important;
     color: white;
-    font-size: 25px;
-    height: 120px;
-    width: 120px;
-    background-color: transparent !important;
+    border: none;
+    margin: 0 !important;
   }
 
-  .el-button:hover {
-    background-color: rgba(58,145,186,0.7);
-    border: transparent !important;
+  .el-radio {
+    color: white;
+  }
+
+  /deep/ .chooseBytype span.el-radio__inner {
+    display: none;
+  }
+
+  .el-radio {
+    font-size: 25px;
+    padding-top: 10px;
   }
 </style>

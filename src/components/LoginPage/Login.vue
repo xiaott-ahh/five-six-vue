@@ -1,6 +1,8 @@
 <template>
   <div id="poster">
-      <el-form :model="loginForm" label-position="left" class="login">
+      <el-form :model="loginForm" label-position="left" class="login"
+        @keyup.enter.native="login"
+      >
         <el-form-item label="用户名/邮箱">
           <el-input size="small" type="text" v-model="loginForm.name" autocomplete="off"></el-input>
         </el-form-item>
@@ -70,8 +72,7 @@ export default {
 <style scoped>
 
   #poster {
-    background:url("../../assets/login.png") no-repeat;
-    background-position: center;
+    background: url("../../assets/images/login.jpg") no-repeat center;
     height: 100%;
     width: 100%;
     background-size: cover;

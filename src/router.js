@@ -2,11 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import Register from '@/components/registerpage/Register'
-import Movie from '@/components/moviepage/Movie'
+import Movie from '@/components/blogpage/Movie'
 import Recommand from "@/components/recomandpage/Recommand"
 import MoviePlay from "@/components/common/MoviePlay"
 import Login from "@/components/LoginPage/Login";
 import MovieSet from "@/components/moviepage/MovieSet";
+import SearchResult from "@/components/searchResultPage/SearchResult";
 
 Vue.use(Router)
 
@@ -66,6 +67,14 @@ export default new Router({
             path: '/movieplay',
             name: 'MoviePlay',
             component: MoviePlay,
+            meta: {
+                keepAlive: true
+            }
+        },
+        {
+            path: '/search',
+            name: 'SearchResult',
+            component: SearchResult,
             meta: {
                 keepAlive: true
             }

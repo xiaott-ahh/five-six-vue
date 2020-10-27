@@ -19,10 +19,10 @@
             <template v-slot:content>
               <div class="slide-content" align="left">
                 <p class="count">NO.{{i+1}} {{slide.title}}({{slide.date}})</p>
-                <star-rate :value=slide.rate
-                           :disabled="true"
-                           type="star1"/>
-                <span class="rate-text" style="color: #3a91ba">{{slide.rate}}</span>
+                <rate
+                    :grade=slide.rate
+                >
+                </rate>
                 <br/>
                 <div class="movie-profile">
                   <p>导演：{{slide.director}}</p>
@@ -75,12 +75,12 @@
 
 <script>
 import { VueperSlides, VueperSlide } from 'vueperslides'
+import Rate from "@/components/common/Rate"
 import 'vueperslides/dist/vueperslides.css'
-import StarRate from 'vue-cute-rate'
 import '../../assets/my-ele-css/my-loading.css'
 export default {
   name: "Recommand",
-  components: {VueperSlide, VueperSlides,StarRate},
+  components: {VueperSlide, VueperSlides,Rate},
   data: () => ({
     isCollected: false,
     slides: [

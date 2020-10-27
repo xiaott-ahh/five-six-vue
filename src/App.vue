@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav-menu v-if="$route.meta.keepAlive"></nav-menu>
+    <nav-menu v-if="$route.meta.keepAlive" @showSearchResult="listByKeywords" ref="navMenuSearch"></nav-menu>
     <router-view/>
   </div>
 </template>
@@ -10,7 +10,20 @@ import NavMenu from "@/components/common/NavMenu";
 export default {
   name: 'App',
   components : {NavMenu},
-
+  methods: {
+    listByKeywords() {
+      let keywords =  this.$refs.navMenuSearch.keywords
+      let url = 'search?keywords=' + keywords
+      console.log(this.$route.path)
+      this.$router.push({
+        path:'/search',
+        query:{
+          url:url,
+          keywords: keywords
+        }
+      })
+    }
+  }
 }
 </script>
 

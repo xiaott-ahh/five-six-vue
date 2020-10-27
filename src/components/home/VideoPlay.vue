@@ -1,7 +1,7 @@
 <template>
     <div class="video-container" >
       <video id="v1" autoplay loop muted poster="../../assets/images/home-page-content.png">
-        <source src="../../assets/hero_1.mp4" type="video/mp4"/>
+        <source src="../../assets/hero.mp4" type="video/mp4"/>
       </video>
     </div>
 </template>

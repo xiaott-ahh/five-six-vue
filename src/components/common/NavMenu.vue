@@ -5,7 +5,7 @@
         <img src="../../assets/images/logo.png" alt=""/>
       </a>
     </div>
-    <div class="nav-left" style="width: 40%;padding-right: 30px">
+    <div class="nav-left" style="width: 30%;padding-right: 30px">
       <el-menu
           theme="dark"
           mode="horizontal"
@@ -19,19 +19,21 @@
         <el-menu-item index="/news">影讯</el-menu-item>
       </el-menu>
     </div>
-    <div class="nav-search" style="width: 20%;padding-top: 1px">
+    <div class="nav-search" style="width: 35%;padding-top: 15px;margin-left: 30px">
       <el-input
-          placeholder="快速搜索..."
+          @keyup.enter.native="searchClick"
+          placeholder="输入电影、导演、演员名称..."
           prefix-icon="el-icon-search"
-          size="mini"
-          style="margin-top: 15px;"
+          size="small"
+          style="width: 70%;margin-right: 10px"
           v-model="keywords">
       </el-input>
+      <el-button size="small" type="primary" icon="el-icon-search" @click="searchClick">搜索</el-button>
     </div>
-    <div class="nav-sep" style="width: 1%;padding-left: 20px">
+    <div class="nav-sep" style="width: 1%;">
       <h3 style="color: white">|</h3>
     </div>
-    <div v-if="!$store.state.user.username" class="nav-right" style="width: 15%">
+    <div v-if="!$store.state.user.name" class="nav-right" style="width: 15%">
       <el-menu
           theme="dark"
           class="nav-right"
@@ -56,7 +58,6 @@
       >
         <el-submenu
             index="user-profile"
-            hide-timeout="8000"
         >
           <template slot="title">
             <span>{{$store.state.user.username}}</span>
@@ -75,6 +76,7 @@
 <script>
 import '../../assets/my-ele-css/my-input.css'
 export default {
+  name: 'NavMenu',
   data() {
     return {
       keywords: '',
@@ -97,9 +99,11 @@ export default {
           }, 1000);
         }
       }
+    },
+    searchClick() {
+      this.$emit("showSearchResult")
     }
   },
-  name: 'NavMenu',
 }
 </script>
 
@@ -148,5 +152,13 @@ export default {
       background:no-repeat;
     }
 
+    .nav-search {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-align-items: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+    }
 </style>
 
