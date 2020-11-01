@@ -3,13 +3,13 @@
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm"  class="register">
       <h2 style="color: #3a91ba;">注册</h2>
       <el-form-item label="用户名" prop="name">
-        <el-input size="medium" auto-complete="off" v-model="ruleForm.name"></el-input>
+        <el-input size="small" auto-complete="off" v-model="ruleForm.name"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="pass">
-        <el-input size="medium" type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+        <el-input size="small" type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="checkPass">
-        <el-input size="medium" type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+        <el-input size="small" type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item style="margin-top: 20px;">
         <el-button  type="primary" @click="submitForm('ruleForm')">提交</el-button>
@@ -66,7 +66,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$axios.post('/register',{
-            name: this.ruleForm.name,
+            username: this.ruleForm.name,
             password: this.ruleForm.pass
           }).then(resp => {
             if (resp.data.code === 200) {
@@ -80,7 +80,9 @@ export default {
               })
             }
             // eslint-disable-next-line no-unused-vars
-          }).catch(failResponse => {})
+          }).catch(failResponse => {
+            this.$alert('请求失败')
+          })
         } else {
           console.log('error submit!!');
           return false;

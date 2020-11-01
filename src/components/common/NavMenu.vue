@@ -33,7 +33,7 @@
     <div class="nav-sep" style="width: 1%;">
       <h3 style="color: white">|</h3>
     </div>
-    <div v-if="!$store.state.user.name" class="nav-right" style="width: 15%">
+    <div v-if="!$store.state.user.username" class="nav-right" style="width: 15%">
       <el-menu
           theme="dark"
           class="nav-right"
@@ -47,28 +47,20 @@
       </el-menu>
     </div>
     <div v-else class="user-profile" style="width: 15%">
-      <el-menu
-          theme="dark"
-          class="nav-userProfile"
-          mode="horizontal"
-          background-color=transparent
-          text-color=white
-          active-text-color=white
-          style="margin-left: 40px"
-      >
-        <el-submenu
-            index="user-profile"
+        <el-dropdown
+            @command="handleCommand"
         >
-          <template slot="title">
-            <span>{{$store.state.user.username}}</span>
-            <img src="../../assets/ico/wechat.png" alt="" />
-          </template>
-          <el-menu-item index="profile-1">我的收藏</el-menu-item>
-          <el-menu-item index="profile-2">管理文章</el-menu-item>
-          <el-menu-item index="profile-3">我的关注</el-menu-item>
-          <el-button>退出</el-button>
-        </el-submenu>
-      </el-menu>
+          <span class="el-dropdown-link">{{$store.state.user.username }}</span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>我的收藏</el-dropdown-item>
+            <el-dropdown-item>修改信息</el-dropdown-item>
+            <el-dropdown-item command="enterBg">进入后台</el-dropdown-item>
+            <el-dropdown-item command="logout">
+              <el-button type="primary" @click="logout">退出</el-button>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      <el-avatar :size="40" icon="el-icon-user-solid"></el-avatar>
     </div>
   </div>
 </template>
@@ -102,6 +94,21 @@ export default {
     },
     searchClick() {
       this.$emit("showSearchResult")
+    },
+    logout() {
+      this.$axios.get('/logout').then(resp=>{
+        if (resp && resp.data.code === 200) {
+          this.$store.commit('logout')
+          this.$router.replace('/login')
+        }
+      })
+    },
+    handleCommand(command) {
+      if (command === 'enterBg') {
+        this.$router.replace('/admin')
+      } else if (command !== 'logout') {
+        this.$alert('功能还未开发')
+      }
     }
   },
 }
@@ -127,23 +134,15 @@ export default {
       /* 定义交叉轴对其方式 */
       align-items: flex-start
     }
+
     .el-menu {
       border: none !important;
-    }
-
-    .el-submenu {
-      border-bottom: none;
     }
 
     .el-menu-item:hover {
       background-color: #3a91ba !important;
     }
-    .el-submenu:hover {
-      background-color: #3a91ba !important;
-    }
-    /deep/ .el-submenu__title {
-      background-color: transparent !important;
-    }
+
     .el-menu-item {
       border-bottom: none !important;
       background-color: transparent !important;
@@ -160,5 +159,23 @@ export default {
       -webkit-justify-content: center;
       justify-content: center;
     }
+
+    .el-dropdown-menu__item {
+      text-align: center;
+    }
+
+    .user-profile {
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .el-dropdown-link {
+      color:white;
+      font-size: 15px;
+      padding-right: 10px;
+      cursor: pointer;
+    }
+
 </style>
 

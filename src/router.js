@@ -8,6 +8,10 @@ import MoviePlay from "@/components/common/MoviePlay"
 import Login from "@/components/LoginPage/Login";
 import MovieSet from "@/components/moviepage/MovieSet";
 import SearchResult from "@/components/searchResultPage/SearchResult";
+import AdminIndex from "@/components/admin/AdminIndex";
+import MovieManagement from "@/components/admin/content/MovieManagement";
+import UserProfile from "@/components/admin/user/UserProfile";
+import Role from "@/components/admin/user/Role";
 
 Vue.use(Router)
 
@@ -21,6 +25,41 @@ export default new Router({
             meta: {
                 keepAlive: true
             }
+        },
+        {
+            path: '/admin',
+            name: 'AdminIndex',
+            component: AdminIndex,
+            meta: {
+                keepAlive: false,
+                requireAuth: true
+            },
+            children : [
+                {
+                  path: 'content/movie',
+                  name: 'MovieManagement',
+                  component: MovieManagement,
+                  meta: {
+                      requireAuth: true
+                  }
+                },
+                {
+                    path: 'user/profile',
+                    name: 'UserProfile',
+                    component: UserProfile,
+                    meta: {
+                        requireAuth: true
+                    }
+                },
+                {
+                    path: 'user/role',
+                    name: 'Role',
+                    component: Role,
+                    meta: {
+                        requireAuth: true
+                    }
+                }
+            ]
         },
         {
             path: '/login',
@@ -43,7 +82,8 @@ export default new Router({
             name: 'Movie',
             component: Movie,
             meta: {
-                keepAlive: true
+                keepAlive: true,
+                requireAuth: true
             }
         },
         {
@@ -51,7 +91,8 @@ export default new Router({
             name: 'MovieSet',
             component: MovieSet,
             meta: {
-                keepAlive: true
+                keepAlive: true,
+                requireAuth: true
             }
         },
         {

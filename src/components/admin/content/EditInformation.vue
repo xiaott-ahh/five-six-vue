@@ -1,6 +1,5 @@
 <template>
   <div>
-    <img src="../../assets/ico/add.png" class="add-movie"  @click="dialogFormVisible = true" />
     <el-dialog
         title="添加/修改电影信息"
         :visible.sync="dialogFormVisible"
@@ -60,6 +59,7 @@
         </el-form-item>
         <el-form-item label="海报" :label-width="formLabelWidth" prop="cover">
           <el-input v-model="form.cover" autocomplete="off" placeholder="海报 URL"></el-input>
+          <img-upload @onUpload="uploading" ref="imgUpload"></img-upload>
         </el-form-item>
         <el-form-item prop="id" style="height: 0">
           <el-input type="hidden" v-model="form.id" autocomplete="off"></el-input>
@@ -74,8 +74,10 @@
 </template>
 
 <script>
+import ImgUpload from "@/components/admin/content/ImgUpload";
 export default {
   name: "EditInformation",
+  components: {ImgUpload},
   data () {
     return {
       typeToId: {
@@ -134,7 +136,7 @@ export default {
     },
     onSubmit () {
       this.$axios
-          .post('/movies'+'?changeCategories='+this.categoriesChanged, {
+          .post('admin/content/movie/update'+'?changeCategories='+this.categoriesChanged, {
             id: this.form.id,
             cover: this.form.cover,
             title: this.form.title,
@@ -153,6 +155,8 @@ export default {
               this.dialogFormVisible = false
               this.$emit('onSubmit')
         }
+      }).catch((failureResponse)=>{
+        this.$alert('请求失败')
       })
     },
     handleClose(tag) {
@@ -188,6 +192,9 @@ export default {
       }
       this.categoriesInputVisible = false;
       this.categoriesInputValue = '';
+    },
+    uploading() {
+      this.form.cover = this.$refs.imgUpload.url
     }
   }
 }

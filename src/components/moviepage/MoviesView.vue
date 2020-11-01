@@ -32,14 +32,16 @@
         <p slot="content" style="width: 300px" class="abstract">简介：{{item.abs}}</p>
         <el-card style="background-color:transparent;border:none;width: 135px;margin-bottom: 20px;height: 233px;float: left;margin-right: 15px" class="movie"
                  bodyStyle="padding:10px" shadow="hover">
-          <div class="cover" @click="editMovie(item)">
+          <div class="cover">
             <img :src="item.cover" alt="海报">
           </div>
           <div class="info">
             <div class="title" style="padding-left: 10px;">
               <a href="">{{item.title}}</a>
+              <span class="rate" style="font-size: 15px;color: #f9ca05;margin-left: 5px">{{item.rate}}</span>
+              <!--
               <img src="../../assets/ico/delete.png" style="width: 15px;height: 15px;padding-left: 5px;" class="el-icon-delete" @click="deleteMovie(item.id)" alt="delete"
-              />
+              -->
             </div>
           </div>
         </el-card>
@@ -58,7 +60,7 @@
 </template>
 
 <script>
-import EditInformation from "@/components/moviepage/EditInformation";
+import EditInformation from "@/components/admin/content/EditInformation";
 import Rate from "@/components/common/Rate";
 
 export default {
@@ -73,7 +75,6 @@ export default {
   },
   mounted: function () {
     this.loadMovies()
-    console.log(this.movies)
   },
   methods: {
     loadMovies () {
@@ -90,45 +91,6 @@ export default {
       this.currentPage = currentPage
       console.log(this.currentPage)
     },
-    deleteMovie (id) {
-      this.$confirm('此操作将永久删除该电影信息, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-            this.$axios
-                .post('/delete', {id: id}).then(resp => {
-              if (resp && resp.status === 200) {
-                this.loadMovies()
-              }
-            })
-          }
-      ).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
-      // alert(id)
-    },
-    editMovie (item) {
-      this.$refs.edit.dialogFormVisible = true
-      this.$refs.edit.form = {
-        id: item.id,
-        cover: item.cover,
-        title: item.title,
-        date: item.date,
-        rate: item.rate,
-        director: item.director,
-        scriptwriter: item.scriptwriter,
-        actors: item.actors,
-        language: item.language,
-        district: item.district,
-        duration: item.duration,
-        abs: item.abs,
-        categories: item.categories
-      }
-    }
   }
 }
 </script>

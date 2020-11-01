@@ -3,13 +3,13 @@
       <el-form :model="loginForm" label-position="left" class="login"
         @keyup.enter.native="login"
       >
-        <el-form-item label="用户名/邮箱">
-          <el-input size="small" type="text" v-model="loginForm.name" autocomplete="off"></el-input>
+        <el-form-item label="用户名">
+          <el-input size="small" type="text" v-model="loginForm.username" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码">
           <el-input size="small" type="password" v-model="loginForm.password" autocomplete="off"></el-input>
         </el-form-item>
-        <el-button style="padding-right: 10px" type="text" @click="forgetPassword">忘记密码？</el-button>
+        <el-button style="padding-right: 10px" type="text" @click="register">还没有账号？</el-button>
         <el-checkbox size="medium" style="padding-left: 90px;color: white" v-model="checked">记住我</el-checkbox>
         <el-form-item style="padding: 10px 50px 0px 50px">
           <el-button  class="submit" size="medium" round type="primary" @click="login">提交</el-button>
@@ -35,8 +35,9 @@ export default {
   name: "Login",
   data () {
     return {
+      checked: false,
       loginForm: {
-        name: '',
+        username: '',
         password: ''
       },
       responseResult: []
@@ -44,11 +45,12 @@ export default {
   },
   methods: {
     login () {
-      var _this = this
+      const _this = this
       console.log(this.$store.state)
+      const url = '/login?rememberMe=' + this.checked
       this.$axios
-          .post('/login', {
-            name: this.loginForm.name,
+          .post(url, {
+            username: this.loginForm.username,
             password: this.loginForm.password
           },)
           .then(successResponse => {
@@ -64,6 +66,9 @@ export default {
           .catch(failResponse => {
             alert(failResponse.data);
           })
+    },
+    register() {
+      this.$router.replace('/register')
     }
   }
 }
@@ -93,6 +98,7 @@ export default {
   .submit.el-button {
     width: 200px;
   }
+
   a.login-way {
     padding: 23px;
   }
