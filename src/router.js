@@ -12,6 +12,7 @@ import AdminIndex from "@/components/admin/AdminIndex";
 import MovieManagement from "@/components/admin/content/MovieManagement";
 import UserProfile from "@/components/admin/user/UserProfile";
 import Role from "@/components/admin/user/Role";
+import ErrorPage from "@/components/common/ErrorPage";
 
 Vue.use(Router)
 
@@ -119,6 +120,18 @@ export default new Router({
             meta: {
                 keepAlive: true
             }
+        },
+        {
+            path: '/404',
+            name: 'ErrorPage',
+            component: ErrorPage,
+            meta: {
+                keepAlive: false
+            }
+        },
+        {
+            path: '*',
+            redirect: '/404',
         }
 
     ]

@@ -1,6 +1,12 @@
 <template>
   <div id="poster">
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm"  class="register">
+    <el-form
+        :model="ruleForm"
+        status-icon
+        :rules="rules"
+        ref="ruleForm"
+        @keyup.enter.native="submitForm('ruleForm')"
+        class="register">
       <h2 style="color: #3a91ba;">注册</h2>
       <el-form-item label="用户名" prop="name">
         <el-input size="small" auto-complete="off" v-model="ruleForm.name"></el-input>
