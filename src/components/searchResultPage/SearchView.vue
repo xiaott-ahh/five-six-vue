@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header style="margin-bottom: 30px">
-      <p v-if="movies" style="font-size: 35px;color: #3377aa">搜索 {{keywords}} 的结果...</p>
+      <p v-if="movies.length" style="font-size: 35px;color: #3377aa">搜索 {{keywords}} 的结果...</p>
       <p v-else style="font-size: 35px;color: #3377aa">暂无结果</p>
     </el-header>
     <el-container

@@ -1,6 +1,6 @@
 <template>
   <div style="text-align: left">
-    <el-row style="margin: 18px 0 0 18px ">
+    <el-row style="margin: 18px 0 0 18px; ">
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/admin/dashboard' }">管理中心</el-breadcrumb-item>
         <el-breadcrumb-item>内容管理</el-breadcrumb-item>
@@ -116,6 +116,16 @@
         <el-button @click="batchDelete">批量删除</el-button>
       </div>
     </el-card>
+    <div style="margin: 20px 0 50px 0">
+      <el-pagination
+          background
+          style="float:right;"
+          layout="total, prev, pager, next, jumper"
+          @current-change="handleCurrentChange"
+          :page-size="pageSize"
+          :total="1500">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -126,6 +136,7 @@ export default {
   components: {EditInformation},
   data () {
     return {
+      pageSize:21,
       emptyMovie: {
         id: '',
         title: '',
@@ -149,23 +160,27 @@ export default {
   },
   computed: {
     tableHeight () {
-      return window.innerHeight - 330
+      return window.innerHeight - 360
     }
   },
   methods: {
     loadMovies () {
       const _this = this;
-      this.$axios.get('/movies').then(resp => {
+      this.$axios.get('/movies/page/0').then(resp => {
         console.log(resp.status)
         console.log(resp.data)
         if (resp && resp.status === 200) {
-          _this.movies = resp.data
+          _this.movies = resp.data;
         }
       })
     },
     handleCurrentChange: function (currentPage) {
-      this.currentPage = currentPage
-      console.log(this.currentPage)
+      const url = '/movies/page/' + (currentPage*this.pageSize);
+      this.$axios.get(url).then(resp => {
+        if(resp && resp.status === 200) {
+          this.movies =resp.data;
+        }
+      })
     },
     deleteMovie (id) {
       this.$confirm('此操作将永久删除该电影信息, 是否继续?', '提示', {

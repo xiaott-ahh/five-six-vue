@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row style="height: 840px;">
+    <el-row style="height: 950px;">
       <el-tooltip effect="dark" placement="right"
                   v-for="item in movies.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                   :key="item.id"
@@ -17,7 +17,7 @@
         <p slot="content">主演：{{item.actors}}</p>
         <p slot="content">国家/地区：{{item.district}}</p>
         <p slot="content">语言：{{item.language}}</p>
-        <p slot="content">时长：{{item.duration}}分钟</p>
+        <p slot="content">时长：{{item.duration}}</p>
         <div class="categories" slot="content">
           <span class="tag-group__title">类型：</span>
           <el-tag
@@ -30,23 +30,20 @@
           </el-tag>
         </div>
         <p slot="content" style="width: 300px" class="abstract">简介：{{item.abs}}</p>
-        <el-card style="background-color:transparent;border:none;width: 135px;margin-bottom: 20px;height: 233px;float: left;margin-right: 15px" class="movie"
+        <el-card style="background-color:transparent;border:none;width: 135px;margin-bottom: 10px;height: 300px;float: left;margin-right: 25px" class="movie"
                  bodyStyle="padding:10px" shadow="hover">
           <div class="cover">
             <img :src="item.cover" alt="海报">
           </div>
-          <div class="info">
-            <div class="title" style="padding-left: 10px;">
-              <a href="">{{item.title}}</a>
-              <span class="rate" style="font-size: 15px;color: #f9ca05;margin-left: 5px">{{item.rate}}</span>
-              <!--
-              <img src="../../assets/ico/delete.png" style="width: 15px;height: 15px;padding-left: 5px;" class="el-icon-delete" @click="deleteMovie(item.id)" alt="delete"
-              -->
-            </div>
+          <div class="title" style="padding-left: 10px;">
+            <a href="">{{item.title}}</a>
+            <span class="rate" style="font-size: 15px;color: #f9ca05;margin-left: 5px;margin-top: 2px">{{item.rate}}</span>
+            <!--
+            <img src="../../assets/ico/delete.png" style="width: 15px;height: 15px;padding-left: 5px;" class="el-icon-delete" @click="deleteMovie(item.id)" alt="delete"
+            -->
           </div>
         </el-card>
       </el-tooltip>
-      <edit-information @onSubmit="loadMovies()" ref="edit"></edit-information>
     </el-row>
     <el-row>
       <el-pagination
@@ -69,7 +66,7 @@ export default {
   data () {
     return {
       currentPage:1,
-      pageSize:17,
+      pageSize:21,
       movies: []
     }
   },
@@ -111,16 +108,12 @@ export default {
     /*margin: 0 auto;*/
   }
 
+
   .title {
     font-size: 14px;
-    display: -webkit-flex;
     display: flex;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
     justify-content: center;
   }
-
   .abstract {
     display: block;
     line-height: 17px;
@@ -128,6 +121,7 @@ export default {
 
   a {
     text-decoration: none;
+    height: 50px;
   }
 
   a:link, a:visited, a:focus {
@@ -143,6 +137,13 @@ export default {
     background: transparent !important;
   }
 
+  /deep/ li.number {
+    background: transparent !important;
+  }
+
+  /deep/ li.el-icon.more {
+    background: transparent !important;
+  }
   /deep/ button.btn-prev {
     background: transparent !important;
   }

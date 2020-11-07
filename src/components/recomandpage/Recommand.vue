@@ -3,7 +3,7 @@
     <el-container>
       <el-header height="20px"></el-header>
       <el-container>
-        <el-aside width="60%" style="padding-left:50px;padding-right: 30px">
+        <el-aside width="60%" style="padding-left:50px;padding-right: 30px;">
           <vueper-slides
               fade
               class="no-shadow thumbnails"
@@ -41,7 +41,7 @@
                     <p>主演：{{slide.actors}}</p>
                     <p>国家/地区：{{slide.district}}</p>
                     <p>语言：{{slide.language}}</p>
-                    <p>时长：{{slide.duration}}分钟</p>
+                    <p>时长：{{slide.duration}}</p>
                   </div>
                 </div>
               </template>
@@ -73,7 +73,7 @@
             </div>
             <div class="function">
               <div>
-                <img src='../../assets/ico/more.png' alt="" @click="playvideo"/>
+                <img src='../../assets/ico/more.png' alt="" @click="showMore"/>
                 <span class="play">详细信息</span>
               </div>
               <div>
@@ -102,9 +102,13 @@ export default {
   components: {VueperSlide, VueperSlides,Rate},
   data: () => ({
     isCollected: false,
-    slides: []
+    slides: [],
+    currPage:0,
+    pageSize:21,
+    pages:75,
   }),
   methods: {
+    /*
     playvideo() {
       const url = document.getElementsByClassName('movie-url')[0].innerHTML
       console.log(url)
@@ -114,13 +118,16 @@ export default {
           url:url
         }
       })
+    },*/
+    showMore() {
+
     },
     loadMovies () {
       const _this = this;
-      _this.slides = []
-      this.$axios.get('/movies').then(resp => {
-        console.log(resp.status)
-        console.log(resp.data)
+      if (_this.currPage === _this.pages) {
+        this.currPage = 0;
+      }
+      this.$axios.get('/movies/page/' + (_this.currPage*_this.pageSize)).then(resp => {
         if (resp && resp.status === 200) {
           _this.slides = resp.data
         }
@@ -137,7 +144,9 @@ export default {
       });
       setTimeout(() => {
         loading.close();
-      }, 1000);
+      }, 2000);
+      this.currentPage += 1;
+      this.loadMovies();
     },
     onCollectClick() {
       if (this.isCollected) {
@@ -157,6 +166,8 @@ export default {
     setTimeout(() => {
       loading.close();
     }, 1000);
+    this.currentPage += 1;
+    this.loadMovies();
   },
   mounted() {
     this.loadMovies();
@@ -177,6 +188,7 @@ export default {
   div.slide-content p.count {
     font-size: 45px;
     margin-top: 20px;
+    margin-bottom: 20px;
   }
 
   div.slide-content p{
